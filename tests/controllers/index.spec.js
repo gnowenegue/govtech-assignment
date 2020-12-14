@@ -68,8 +68,11 @@ describe('##### CONTROLLERS #####', () => {
         .request(app)
         .get(`/api/commonstudents`)
         .end((err, res) => {
+          console.log('##### res.body', res.body);
           expect(res).to.have.status(400);
-          expect(res.text).to.equal(ERR_MSG.default);
+          expect(res.body)
+            .to.eql({ message: ERR_MSG.default })
+            .and.be.an('object');
           return done();
         });
     });
@@ -82,7 +85,9 @@ describe('##### CONTROLLERS #####', () => {
         .get(`/api/commonstudents?teacher=${teacher}`)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal(ERR_MSG.default);
+          expect(res.body)
+            .to.eql({ message: ERR_MSG.default })
+            .and.be.an('object');
           return done();
         });
     });
@@ -119,7 +124,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ teacher, students })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal(ERR_MSG.default);
+          expect(res.body)
+            .to.eql({ message: ERR_MSG.default })
+            .and.be.an('object');
 
           stub.restore();
 
@@ -134,7 +141,12 @@ describe('##### CONTROLLERS #####', () => {
         .send()
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal('Missing parameters: teacher, students');
+          expect(res.body)
+            .to.eql({
+              message: 'Missing parameters: teacher, students',
+            })
+            .and.be.an('object');
+
           return done();
         });
     });
@@ -146,7 +158,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ students })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal('Missing parameter: teacher');
+          expect(res.body)
+            .to.eql({ message: 'Missing parameter: teacher' })
+            .and.be.an('object');
           return done();
         });
     });
@@ -158,7 +172,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ teacher })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal('Missing parameter: students');
+          expect(res.body)
+            .to.eql({ message: 'Missing parameter: students' })
+            .and.be.an('object');
           return done();
         });
     });
@@ -192,7 +208,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ student })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal(ERR_MSG.default);
+          expect(res.body)
+            .to.eql({ message: ERR_MSG.default })
+            .and.be.an('object');
 
           stub.restore();
           return done();
@@ -206,7 +224,9 @@ describe('##### CONTROLLERS #####', () => {
         .send()
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal('Missing parameter: student');
+          expect(res.body)
+            .to.eql({ message: 'Missing parameter: student' })
+            .and.be.an('object');
           return done();
         });
     });
@@ -247,7 +267,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ teacher, notification })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal(ERR_MSG.default);
+          expect(res.body)
+            .to.eql({ message: ERR_MSG.default })
+            .and.be.an('object');
 
           stub.restore();
           return done();
@@ -261,9 +283,9 @@ describe('##### CONTROLLERS #####', () => {
         .send()
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal(
-            'Missing parameters: teacher, notification'
-          );
+          expect(res.body)
+            .to.eql({ message: 'Missing parameters: teacher, notification' })
+            .and.be.an('object');
           return done();
         });
     });
@@ -275,7 +297,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ notification })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal('Missing parameter: teacher');
+          expect(res.body)
+            .to.eql({ message: 'Missing parameter: teacher' })
+            .and.be.an('object');
           return done();
         });
     });
@@ -287,7 +311,9 @@ describe('##### CONTROLLERS #####', () => {
         .send({ teacher })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.text).to.equal('Missing parameter: notification');
+          expect(res.body)
+            .to.eql({ message: 'Missing parameter: notification' })
+            .and.be.an('object');
           return done();
         });
     });
